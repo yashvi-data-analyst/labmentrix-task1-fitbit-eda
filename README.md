@@ -41,6 +41,7 @@ Datasets 🔗
 -heartrate_seconds_merged.csv — source: <https://drive.google.com/file/d/1yAn5emRYfDFSO5yFu6lvvKtS5GYG17Uu/view?usp=drive_link>
 
 Processing steps ⚙️
+
 -ID normalization: Cast Id to string across all tables to ensure safe joins.
 -Datetime parsing: Explicit formats for ActivityDate, SleepDay, Weight Date, and HR timestamps (12‑hour primary, 24‑hour fallback).
 -De‑duplication: First per Id+date for daily and sleep tables.
