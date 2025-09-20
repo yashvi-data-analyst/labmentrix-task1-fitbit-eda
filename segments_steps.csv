@@ -1,0 +1,4 @@
+steps_bucket,Calories,TotalMinutesAsleep,SedentaryMinutes,AvgHR
+<5k,1804.0,454.3,1131.6,78.3
+5k-10k,2355.2,422.1,956.1,77.5
+>10k,2743.6,396.1,888.7,79.5
