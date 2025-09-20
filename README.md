@@ -1,64 +1,71 @@
-Title
-Fitbit Wellness Analysis — Labmentrix Task 1
+Fitbit Wellness Analysis — Labmentrix Task 1 ✨
+Clean, reproducible exploratory analysis of Fitbit daily activity, sleep, weight, and heart‑rate data. The notebook normalizes IDs, parses dates explicitly, de‑duplicates rows, aggregates HR to daily metrics, merges sources, applies quality checks, computes KPIs, and produces publication‑ready visuals. 📊
 
-Overview
-A clean, reproducible exploratory analysis of Fitbit daily activity, sleep, weight, and heart‑rate data. The notebook normalizes IDs, parses dates explicitly, de‑duplicates, aggregates heart‑rate to daily features, merges tables, applies quality checks, computes KPIs, and generates publication‑ready plots.
+Highlights 🚀
+End‑to‑end pipeline: parsing, joins, QC, KPIs, and visuals in one notebook.
 
-Repository layout
+Seven focused plots for insights and presentations.
 
-data_raw: Original CSVs used to run the analysis.
+Auto‑saved CSVs and PNGs for reuse and reporting.
 
-notebook: Main Jupyter notebook.
+Repository layout 🧭
+data_raw — Original CSVs used for the analysis.
 
-files/fitness_result: Auto‑generated outputs (CSVs) and plots (PNGs).
+notebook — Main Jupyter notebook.
 
-exports: Notebook exports (HTML/PDF).
+files/fitness_result — Generated CSVs and plots (PNGs) from the notebook.
 
-README, .gitignore, LICENSE: Documentation and hygiene.
+exports — HTML/PDF exports of the notebook.
 
-Quick start
+README, .gitignore, LICENSE — Documentation and hygiene.
 
-Requirements: Python 3.x; pip install pandas numpy matplotlib seaborn
+text
+Labmentrix_Task1_Fitbit_EDA/
+├─ data_raw/
+├─ notebook/
+├─ files/fitness_result/
+│  └─ plots/
+├─ exports/
+└─ README.md
+Quick start 🛠️
+Requirements: Python 3.x; install: pandas, numpy, matplotlib, seaborn.
 
-Data: Place the four CSVs inside data_raw/ with the exact filenames below.
+Data: Place all four CSVs in data_raw/ with the exact filenames listed below.
 
-Run: Open notebook/Labmentrix_Task1_Fitbit_EDA.ipynb and “Run All”.
+Run: Open notebook/Labmentrix_Task1_Fitbit_EDA.ipynb and “Run All.”
 
-Outputs: Generated to files/fitness_result/ and files/fitness_result/plots/.
+Outputs: CSVs in files/fitness_result/ and PNGs in files/fitness_result/plots/.
 
-Export: From the notebook menu, export to HTML/PDF into exports/.
+Export: Use File → Export to create HTML/PDF in exports/.
 
-Datasets
-Replace the placeholders with the source links actually used:
+Datasets 🔗
+Replace with the actual sources used:
 
-dailyActivity_merged.csv — link: <ADD_LINK_HERE>
+dailyActivity_merged.csv — source: <ADD_LINK_HERE>
 
-sleepDay_merged.csv — link: <ADD_LINK_HERE>
+sleepDay_merged.csv — source: <ADD_LINK_HERE>
 
-weightLogInfo_merged.csv — link: <ADD_LINK_HERE>
+weightLogInfo_merged.csv — source: <ADD_LINK_HERE>
 
-heartrate_seconds_merged.csv — link: <ADD_LINK_HERE>
+heartrate_seconds_merged.csv — source: <ADD_LINK_HERE>
 
-Note on large heart‑rate file
-If heartrate_seconds_merged.csv is too large for standard uploads, consider Git LFS or keep it local and rely on the link above. The notebook expects it at data_raw/heartrate_seconds_merged.csv; adjust the path if needed.
+Note on large heart‑rate file: If the HR CSV is large, consider Git LFS or keep it local and rely on the link above. The notebook expects: data_raw/heartrate_seconds_merged.csv.
 
-Processing steps
+Processing steps ⚙️
+ID normalization: Cast Id to string across all tables to ensure safe joins.
 
-ID normalization: Cast all Id columns to string for safe joins.
+Datetime parsing: Explicit formats for ActivityDate, SleepDay, Weight Date, and HR timestamps (12‑hour primary, 24‑hour fallback).
 
-Datetime parsing: Explicit formats for ActivityDate, SleepDay, weight Date, and HR timestamps with 12‑hour primary and 24‑hour fallback.
+De‑duplication: First per Id+date for daily and sleep tables.
 
-De‑duplication: First occurrence per Id+date for daily and sleep.
+HR features: Daily AvgHR, MaxHR, MinHR, HRCount from second‑level readings.
 
-Heart‑rate features: Daily AvgHR, MaxHR, MinHR, HRCount aggregated from second‑level readings.
+Merge and features: Join daily + sleep + HR by Id+date; numeric casting; weekday feature.
 
-Merge and features: Combine daily + sleep + HR on Id+date; numeric casting; weekday feature.
+Quality checks: Zero‑step but above‑median‑calorie rows flagged as probable non‑wear and excluded from aggregates.
 
-Quality checks: Flag and exclude zero‑step but above‑median‑calorie rows as probable non‑wear from aggregates.
-
-KPIs
-
-Average steps and percent of days ≥ 10,000.
+KPIs 📈
+Average steps and share of days ≥ 10,000.
 
 Average sleep minutes and sedentary minutes.
 
@@ -66,8 +73,7 @@ Average daily heart rate (if HR present).
 
 Highest and lowest weekday by average steps.
 
-Visuals (saved to files/fitness_result/plots/)
-
+Visuals (auto‑saved) 🖼️
 steps_over_time.png — Steps over time (line).
 
 weekday_bars.png — Avg steps and sleep by weekday (bars).
@@ -82,85 +88,25 @@ segments_compare.png — Step‑bucket comparisons (grouped bars).
 
 sedentary_vs_steps.png — Sedentary minutes vs steps (scatter + trend).
 
-Reproduce checks
+All plots are saved to files/fitness_result/plots/.
 
-Outputs present: files/fitness_result/*.csv should be > 1 KB; plots folder contains 6–7 PNGs.
+Reproduce checks ✅
+files/fitness_result/ contains generated CSVs (>1 KB typical).
 
-Readability: exports/Labmentrix_Task1_Report.html opens cleanly with plots visible.
+files/fitness_result/plots/ contains 6–7 PNGs after running plot cells.
 
-Paths: If data live elsewhere, update the notebook’s load cell accordingly.
+exports/Labmentrix_Task1_Report.html opens with charts visible.
 
-Project structure (suggested)
+If data are in a different location, update the load paths in the notebook.
 
-Labmentrix_Task1_Fitbit_EDA/
-
-data_raw/
-
-dailyActivity_merged.csv
-
-sleepDay_merged.csv
-
-weightLogInfo_merged.csv
-
-heartrate_seconds_merged.csv
-
-notebook/
-
-Labmentrix_Task1_Fitbit_EDA.ipynb
-
-files/
-
-fitness_result/
-
-clean_daily_sleep.csv
-
-agg_by_date.csv
-
-agg_by_weekday.csv
-
-segments_steps.csv
-
-heartrate_daily.csv
-
-plots/
-
-steps_over_time.png
-
-weekday_bars.png
-
-calories_vs_steps.png
-
-sleep_distribution.png
-
-avg_hr_over_time.png
-
-segments_compare.png
-
-sedentary_vs_steps.png
-
-exports/
-
-Labmentrix_Task1_Report.html
-
-Labmentrix_Task1_Report.pdf
-
-README.md
-
-.gitignore
-
-LICENSE
-
-.gitignore (recommended)
-
+.gitignore (recommended) 🧹
 .ipynb_checkpoints/
 
 pycache/
 
 .DS_Store
 
-env/
-
-venv/
+env/ or venv/
 
 exports/*.pdf
 
@@ -168,8 +114,10 @@ files/fitness_result/*.csv
 
 files/fitness_result/plots/*.png
 
-License
+Remove the last three lines if committing outputs into the repo.
+
+License 📄
 MIT License. Educational use. Fitbit sample datasets used for demonstration.
 
-Credits
+Credits 🙏
 Made by Yashvi Verma ❤️
