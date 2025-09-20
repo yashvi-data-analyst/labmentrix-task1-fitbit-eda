@@ -1,4 +1,5 @@
 Fitbit Wellness Analysis — Labmentrix Task 1 ✨
+
 Clean, reproducible exploratory analysis of Fitbit daily activity, sleep, weight, and heart‑rate data. The notebook normalizes IDs, parses dates explicitly, de‑duplicates rows, aggregates HR to daily metrics, merges sources, applies quality checks, computes KPIs, and produces publication‑ready visuals. 📊
 
 Highlights 🚀
