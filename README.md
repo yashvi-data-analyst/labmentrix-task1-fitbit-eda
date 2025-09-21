@@ -11,7 +11,7 @@
 
 ⚡ One-click dashboard with KPIs for steps, sleep, calories, and 10k-steps adherence
 
-🗂 Repository Layout
+🗂 Repository Layout 🧭
 
 📁 data_raw — Original CSVs used for the analysis
 📓 notebook — Main Jupyter notebook for parsing, merges, QC, KPIs, and plots
@@ -20,7 +20,7 @@
 🛠 sql — PostgreSQL script for loading, cleaning, deduping, indexing, and analysis views
 📌 powerbi — .pbix for the final dashboard (screenshot included)
 
-🚀 Quick Start
+🚀 Quick Start 🛠️
 
 🖥 Requirements: Python 3.x with pandas, numpy, matplotlib, seaborn; PostgreSQL 14+; Power BI Desktop
 
@@ -32,14 +32,17 @@
 
 📊 Build dashboard: Point Power BI to the cleaned CSVs or to database views to refresh visuals
 
-📑 Datasets
+📑 Datasets 🔗
 
-📂 dailyActivity_merged.csv — activity metrics per day
-💤 sleepDay_merged.csv — sleep minutes and time-in-bed
-⚖️ weightLogInfo_merged.csv — optional weight/BMI log
-❤️ heartrate_seconds_merged.csv — second-level HR, aggregated to daily features
+dailyActivity_merged.csv — Download
 
-🔬 Notebook Processing
+sleepDay_merged.csv — Download
+
+weightLogInfo_merged.csv — Download
+
+heartrate_seconds_merged.csv — Download
+
+🔬 Notebook Processing ⚙️
 
 🆔 ID normalization: Cast Id to string across all tables for safe joins
 
@@ -65,9 +68,9 @@
 
 🔍 Useful queries: overall averages, per-user steps, steps–calories correlation, weekday patterns, sleep joins
 
-📊 KPIs
+📊 KPIs 📈
 
-👣 Average daily steps and % of days ≥10,000
+👣 Average daily steps and % of days ≥ 10,000
 
 💤 Average sleep minutes and sedentary minutes
 
@@ -111,19 +114,23 @@
 
 📊 Power BI → File → Export → PDF for slide-ready pages
 
-📝 .gitignore
+📝 .gitignore 🧹
 
-🗂 .ipynb_checkpoints/, __pycache__/, .DS_Store, env/ or venv/
+.ipynb_checkpoints/
 
-🛡 .pbix.lock.json (if Power BI creates locks)
+__pycache__/
 
-⚖️ License
+.DS_Store
+
+env/ or venv/
+
+.pbix.lock.json (if Power BI creates locks)
+
+⚖️ License 📄
 
 MIT License; educational use; Fitbit sample datasets for demonstration
 
-🙌 Credits
+🙌 Credits 🙏
 
-Built by Yashvi Verma with Python, PostgreSQL, and Power BI
-📄 Strava-style presentation assets used in PPT
-
-👉 Ab README professional bhi lagega aur thoda lively bhi (emoji se sections stand-out
+Built by Yashvi Verma ❤️
+🐍 Python • 🐘 PostgreSQL • 📊 Power BI
