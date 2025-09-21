@@ -1,130 +1,129 @@
-Fitbit Wellness Analysis — Labmentrix Task 1 ✨
+🎯 Fitbit Wellness Analysis — Labmentrix Task 1
 
-Clean, reproducible exploratory analysis of Fitbit daily activity, sleep, weight, and heart‑rate data. The notebook normalizes IDs, parses dates explicitly, de‑duplicates rows, aggregates HR to daily metrics, merges sources, applies quality checks, computes KPIs, and produces publication‑ready visuals. 📊
+✨ Clean, reproducible analysis of Fitbit daily activity, sleep, weight, and heart-rate data with a 3-layer pipeline:
+🐍 Python EDA, 🐘 PostgreSQL data cleaning/metrics, and 📊 Power BI dashboard built from clean CSV exports.
 
+📦 What’s Inside
 
-Highlights 🚀
+🔄 End-to-end pipeline: raw CSVs → Python normalization/QC → SQL typed tables/views → Power BI visuals
 
--End‑to‑end pipeline: parsing, joins, QC, KPIs, and visuals in one notebook.
+📈 Seven+ publication-ready plots saved from the notebook for reuse in slides and reports
 
--Seven focused plots for insights and presentations.
+⚡ One-click dashboard with KPIs for steps, sleep, calories, and 10k-steps adherence
 
--Auto‑saved CSVs and PNGs for reuse and reporting.
+🗂 Repository Layout
 
+📁 data_raw — Original CSVs used for the analysis
+📓 notebook — Main Jupyter notebook for parsing, merges, QC, KPIs, and plots
+📊 files/fitness_result — Generated CSVs from Python/SQL; subfolder plots/ contains PNG charts
+📤 exports — HTML/PDF exports of the notebook for sharing
+🛠 sql — PostgreSQL script for loading, cleaning, deduping, indexing, and analysis views
+📌 powerbi — .pbix for the final dashboard (screenshot included)
 
-Repository layout 🧭
+🚀 Quick Start
 
--data_raw — Original CSVs used for the analysis.
+🖥 Requirements: Python 3.x with pandas, numpy, matplotlib, seaborn; PostgreSQL 14+; Power BI Desktop
 
--notebook — Main Jupyter notebook.
+📂 Data: Place the four CSVs below in data_raw/ with exact filenames
 
--files/fitness_result — Generated CSVs and plots (PNGs) from the notebook.
+▶️ Run Python EDA: Open notebook/Labmentrix_Task1_Fitbit_EDA.ipynb and “Run All” to produce clean merges and plots
 
--exports — HTML/PDF exports of the notebook.
+🐘 Run SQL cleaning: Execute sql/fitness_sql_analysis.sql in PostgreSQL to create typed, deduped daily activity and sleep tables/views
 
--README, .gitignore, LICENSE — Documentation and hygiene.
+📊 Build dashboard: Point Power BI to the cleaned CSVs or to database views to refresh visuals
 
-text
-Labmentrix_Task1_Fitbit_EDA/
-├─ data_raw/
-├─ notebook/
-├─ files/fitness_result/
-│  └─ plots/
-├─ exports/
-└─ README.md
+📑 Datasets
 
-Quick start 🛠️
+📂 dailyActivity_merged.csv — activity metrics per day
+💤 sleepDay_merged.csv — sleep minutes and time-in-bed
+⚖️ weightLogInfo_merged.csv — optional weight/BMI log
+❤️ heartrate_seconds_merged.csv — second-level HR, aggregated to daily features
 
--Requirements: Python 3.x; install: pandas, numpy, matplotlib, seaborn.
+🔬 Notebook Processing
 
--Data: Place all four CSVs in data_raw/ with the exact filenames listed below.
+🆔 ID normalization: Cast Id to string across all tables for safe joins
 
--Run: Open notebook/Labmentrix_Task1_Fitbit_EDA.ipynb and “Run All.”
+🕒 Datetime parsing: Explicit formats for ActivityDate, SleepDay, Weight Date, and HR timestamps with 12-h primary and 24-h fallback
 
--Outputs: CSVs in files/fitness_result/ and PNGs in files/fitness_result/plots/.
+🗑 De-duplication: First occurrence per Id+date for daily and sleep tables
 
--Export: Use File → Export to create HTML/PDF in exports/.
+❤️ HR features: Daily AvgHR, MaxHR, MinHR, HRCount from second-level readings
 
+🔗 Merge + features: Join daily + sleep + HR on Id+date; cast numerics; derive weekday
 
-Datasets 🔗
+🛡 Quality checks: Flag zero-steps but above-median-calories as likely non-wear and exclude from aggregates
 
--dailyActivity_merged.csv — source: <https://drive.google.com/file/d/1DwhJNPjIlJ94F8fjK_SMSXGSzumX8Gww/view?usp=drive_link>
+🐘 SQL Layer (PostgreSQL)
 
--sleepDay_merged.csv — source: <https://drive.google.com/file/d/1qS1MQBvC47rmrX1yHpB5LkDOjehGpdgP/view?usp=drive_link>
+📥 Raw → typed: Load raw tables; trim, NULL-normalize, and cast to proper types
 
--weightLogInfo_merged.csv — source: <https://drive.google.com/file/d/1x0k5c9tgRviMjqTluhoUPhkO_p3wjDkK/view?usp=drive_link>
+📅 Date parsing: Handle MM/DD/YYYY and ISO forms; create DATE-typed activitydate/sleepdate
 
--heartrate_seconds_merged.csv — source: <https://drive.google.com/file/d/1yAn5emRYfDFSO5yFu6lvvKtS5GYG17Uu/view?usp=drive_link>
+🗑 Deduping: Keep best row per Id+date via row_number()
 
+⚡ Indexing: id/date indexes for fast BI queries; convenience view v_user_daily_summary
 
-Processing steps ⚙️
+🔍 Useful queries: overall averages, per-user steps, steps–calories correlation, weekday patterns, sleep joins
 
--ID normalization: Cast Id to string across all tables to ensure safe joins.
+📊 KPIs
 
--Datetime parsing: Explicit formats for ActivityDate, SleepDay, Weight Date, and HR timestamps (12‑hour primary, 24‑hour fallback).
+👣 Average daily steps and % of days ≥10,000
 
--De‑duplication: First per Id+date for daily and sleep tables.
+💤 Average sleep minutes and sedentary minutes
 
--HR features: Daily AvgHR, MaxHR, MinHR, HRCount from second‑level readings.
+🔥 Average daily calories and HR (if present)
 
--Merge and features: Join daily + sleep + HR by Id+date; numeric casting; weekday feature.
+📅 Best and worst weekday by average steps
 
--Quality checks: Zero‑step but above‑median‑calorie rows flagged as probable non‑wear and excluded from aggregates.
+📈 Power BI Dashboard
 
+🃏 Cards: Avg Steps, Avg Sleep (hrs), Avg Calories, % Days ≥10k steps
 
-KPIs 📈
--Average steps and share of days ≥ 10,000.
+🔘 Visuals: Calories vs Steps scatter, Avg Sleep by Weekday, Steps over Time, steps–sleep table with slicers
 
--Average sleep minutes and sedentary minutes.
+🔗 Data sources: Cleaned CSVs or PostgreSQL views for live refresh
 
--Average daily heart rate (if HR present).
+🖼 Visuals Auto-Saved by Notebook
 
--Highest and lowest weekday by average steps.
+📊 steps_over_time.png — Steps trend
+📊 weekday_bars.png — Avg steps & sleep by weekday
+📊 calories_vs_steps.png — Scatter + trend
+😴 sleep_distribution.png — Sleep minutes distribution
+❤️ avg_hr_over_time.png — HR trend
+📊 segments_compare.png — Step-bucket comparisons
+📊 sedentary_vs_steps.png — Sedentary vs steps scatter
 
+✅ Repro Checklist
 
-Visuals (auto‑saved) 🖼️
+✔️ files/fitness_result/ contains generated CSVs
 
--steps_over_time.png — Steps over time (line).
+✔️ files/fitness_result/plots/ contains PNG charts
 
--weekday_bars.png — Avg steps and sleep by weekday (bars).
+✔️ exports/Labmentrix_Task1_Report.html opens with charts
 
--calories_vs_steps.png — Calories vs steps (scatter + trend).
+✔️ Power BI opens and calculates cards/plots
 
--sleep_distribution.png — Sleep minutes distribution (hist + KDE).
+📤 How to Export
 
--avg_hr_over_time.png — Average daily HR over time (line, if available).
+📓 Notebook → File → Export to HTML/PDF into exports/
 
--segments_compare.png — Step‑bucket comparisons (grouped bars).
+🐘 SQL → psql \copy SELECTs to CSV for BI; commit sql/fitness_sql_analysis.sql
 
--sedentary_vs_steps.png — Sedentary minutes vs steps (scatter + trend).
+📊 Power BI → File → Export → PDF for slide-ready pages
 
-All plots are saved to files/fitness_result/plots/.
+📝 .gitignore
 
+🗂 .ipynb_checkpoints/, __pycache__/, .DS_Store, env/ or venv/
 
-Reproduce checks ✅
--files/fitness_result/ contains generated CSVs (>1 KB typical).
+🛡 .pbix.lock.json (if Power BI creates locks)
 
--files/fitness_result/plots/ contains 6–7 PNGs after running plot cells.
+⚖️ License
 
--exports/Labmentrix_Task1_Report.html opens with charts visible.
+MIT License; educational use; Fitbit sample datasets for demonstration
 
--If data are in a different location, update the load paths in the notebook.
+🙌 Credits
 
+Built by Yashvi Verma with Python, PostgreSQL, and Power BI
+📄 Strava-style presentation assets used in PPT
 
-.gitignore (recommended) 🧹
-
-- .ipynb_checkpoints/
-  
-- pycache/
-  
-- .DS_Store
-  
-- env/ or venv/
-
-License 📄
-
-MIT License. Educational use. Fitbit sample datasets used for demonstration.
-
-Credits 🙏
-
-Made by Yashvi Verma ❤️
+👉 Ab README professional bhi lagega aur thoda lively bhi (emoji se sections stand-out
